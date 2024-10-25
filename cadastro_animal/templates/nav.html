@@ -1,55 +1,76 @@
-
-{% load bootstrap5 %}
 {% load static %}
-{% bootstrap_css %}
 
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse " id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">Abrigo Animal</a>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'lista_animais' %}">Lista de animais</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'cadastro_animal' %}">Cadastro de pet</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">Cadastro de adoção</a>
-          </li>
-          
-        </ul>
-        <div class="d-flex">
-            <button class="btn btn-outline-success" type="submit">TEste</button>
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg bg-light shadow-sm">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo01">
+      <a class="navbar-brand me-5 barrio-regular" href="/">Abrigo Animal</a>
+      
+      <!-- Centraliza os itens de navegação -->
+      <ul class="navbar-nav d-flex align-items-center gap-3">
+        <!-- Home link com ícone -->
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="/">
+            <span class="material-symbols-outlined me-1">home</span> Início
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="{% url 'lista_animais' %}">
+            <span class="material-symbols-outlined me-1">pets</span> Lista de animais
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="/">
+            <span class="material-symbols-outlined me-1">assignment</span> Adote
+          </a>
+        </li>
+
+        <!-- Barra de pesquisa arredondada -->
+        <li class="nav-item ms-3">
+          <form class="d-flex align-items-center" role="search" action="{% url 'pesquisar_animais' %}">
+            <div class="input-group rounded-search">
+              <input class="form-control rounded-start" type="search" placeholder="Pesquisar um pet..." aria-label="Search" name="pesquisa_query">
+              <button class="input-group-text bg-primary text-white rounded-end border-0" type="submit">
+                <span class="material-symbols-outlined">search</span>
+              </button>
+            </div>
+          </form>
+        </li>
+      </ul>
+
+      <!-- Botão de login/logout com dropdown alinhado à direita -->
+      <div class="d-flex ms-auto">
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
+            data-bs-display="static" aria-expanded="false">
+            Olá, Visitante!
+          </button>
+          <ul class="dropdown-menu dropdown-menu-lg-end">
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/admin">
+                <span class="material-symbols-outlined me-2">account_circle</span> Fazer login
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <span class="material-symbols-outlined me-2">help</span> Ajuda
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_animal' %}">
+                <span class="material-symbols-outlined me-2">add_circle</span> Cadastro de pet
+              </a>
+            </li>
+          </ul>
         </div>
-       
-      </div>
+      </div> <!-- fim do menu dropdown -->
+
     </div>
   </nav>
-
-
-  <script>
-    const navbarCollapse = document.querySelector('.navbar-collapse');
-    const navbarToggler = document.querySelector('.navbar-toggler');
-
-    // Função para alternar classe e modificar aria-expanded
-    function toggleNavbar() {
-        // Alternar a classe 'show' para o collapse
-        const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
-        
-        // Alterna o estado de 'show' baseado no valor atual de aria-expanded
-        if (isExpanded) {
-            navbarCollapse.classList.remove('show'); // Fecha o menu
-            navbarToggler.setAttribute('aria-expanded', 'false'); // Marca como colapsado
-        } else {
-            navbarCollapse.classList.add('show'); // Abre o menu
-            navbarToggler.setAttribute('aria-expanded', 'true'); // Marca como expandido
-        }
-    }
-
-    // Adicionar evento de clique ao botão
-    navbarToggler.addEventListener('click', toggleNavbar);
-</script>
+</div>

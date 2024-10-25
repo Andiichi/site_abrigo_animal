@@ -15,16 +15,11 @@
                 {% if animal.galeria.first %}
                 <img src="{{ animal.galeria.first.imagem.url }}" class="card-img-top" alt="Imagem de {{ animal.nome|capfirst }}" style="height: 200px; object-fit: cover;">
                 {% else %}
-                <img src="{% static 'img/default.png' %}" class="card-img-top" alt="Imagem de {{ animal.nome|capfirst }}" style="height: 150px; object-fit: cover;">
+                <img src="{% static 'img\default.png' %}" class="card-img-top" alt="Imagem de {{ animal.nome|capfirst }}" style="height: 150px; object-fit: cover;">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title display-6">{{ animal.nome|capfirst }}</h5>
                     <p class="card-text">{{ animal.idade }} anos | {{ animal.especie|capfirst }} | {{ animal.sexo|capfirst }}</p>
-                    {% if animal.disponivel %}
-                    <p class="text-success fw-bold">Disponível para adoção</p>
-                    {% else %}
-                    <p class="text-danger fw-bold">Não disponível para adoção</p>
-                    {% endif %}
                     <a href="{% url 'detalhe_animal' animal.id %}" class="btn btn-outline-primary w-100">Ver mais detalhes</a>
                 </div>
             </div>

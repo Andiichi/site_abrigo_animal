@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 import os
 from django.utils import timezone
 from django.conf import settings
+from django.db.models import Q
 from django.core.files.storage import FileSystemStorage
 
 from .forms import FormCadastroAnimal
@@ -30,12 +31,12 @@ def cadastro(request):
             caminho_pasta = os.path.join(settings.MEDIA_ROOT, 'galeria', nome_pasta)
             os.makedirs(caminho_pasta, exist_ok=True)  # Cria a pasta se não existir
 
-# *************corrigir o bug do index
+
              # Salva as imagens
             for i, imagem in enumerate(animal_imagem):
                 # Novo nome do arquivo com o nome do animal e data de criação (e índice para evitar conflito)
                 novo_nome_arquivo = f"{animal.nome}_{data_formatada}_{i+1}.jpg"
-# **************
+
                 # Cria uma instância de FileSystemStorage para salvar no caminho da nova pasta
                 fs = FileSystemStorage(location=caminho_pasta)
 
@@ -80,3 +81,24 @@ def detalhe_animal(request, animal_id):
     
     # Renderiza o template e passa o objeto `animal` como contexto
     return render(request, 'detalhe_animal.html', {'animal': animal})
+
+
+def pesquisar_animais(request):
+    if 'pesquisa_query' in request.GET:
+        pesquisa_query = request.GET['pesquisa_query']
+
+        #fazendo pessquisa com multiplas palavra chaves e campos
+        query_clean = Q(Q(nome__icontains = pesquisa_query) | Q(especie__icontains = pesquisa_query))
+        animais = CadastroAnimal.objects.filter(query_clean, disponivel = True)
+
+        #fazendo pesquisa só de um campo
+        # animais = CadastroAnimal.objects.filter(nome__icontains = pesquisa_query)
+        
+        return render(request, 'pagina_pesquisa.html', {'pesquisa_query':pesquisa_query , 'animais': animais})
+    
+    else:
+        return render(request, 'pagina_pesquisa.html', {})
+    
+
+def adotar_animais(request):
+    return render(request, 'adotar.html')
