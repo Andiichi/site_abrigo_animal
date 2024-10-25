@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% bootstrap_css %}
+
+{% block title %}
+Cadastro de animais
+{% endblock %}
+
+{% block content %}
+
+<div class="d-grid gap-2 col-6 mx-auto mt-5">
+    <h1 class="text-center">Cadastro de animal</h1>
+
+    {% if sucesso %}
+    <div class="alert alert-success" role="alert">
+        Animal cadastrado com sucesso!
+    </div>
+    {% endif %}
+    
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <div class="mb-3 card">
+        <div class="card-body">
+            <form enctype="multipart/form-data" multiple action="" method="POST">
+                {% csrf_token %}
+
+                {% bootstrap_form form_animal %}
+
+                <label for="animal_imagem">Selecione as imagens:</label>
+                <input class="form-control" type="file" name="animal_imagem" multiple required>
+
+                <div class="mt-4 text-center">
+                    <button class="btn btn-outline-primary" type="submit">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<a class="btn btn-outline-primary m-4" href="{% url 'pagina_inicial' %}" role="button">Voltar a home</a>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+
+{% load bootstrap5 %}
+{% load static %}
+{% bootstrap_css %}
+
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse " id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#">Abrigo Animal</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'lista_animais' %}">Lista de animais</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cadastro_animal' %}">Cadastro de pet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Cadastro de adoção</a>
+          </li>
+          
+        </ul>
+        <div class="d-flex">
+            <button class="btn btn-outline-success" type="submit">TEste</button>
+        </div>
+       
+      </div>
+    </div>
+  </nav>
+
+
+  <script>
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+
+    // Função para alternar classe e modificar aria-expanded
+    function toggleNavbar() {
+        // Alternar a classe 'show' para o collapse
+        const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
+        
+        // Alterna o estado de 'show' baseado no valor atual de aria-expanded
+        if (isExpanded) {
+            navbarCollapse.classList.remove('show'); // Fecha o menu
+            navbarToggler.setAttribute('aria-expanded', 'false'); // Marca como colapsado
+        } else {
+            navbarCollapse.classList.add('show'); // Abre o menu
+            navbarToggler.setAttribute('aria-expanded', 'true'); // Marca como expandido
+        }
+    }
+
+    // Adicionar evento de clique ao botão
+    navbarToggler.addEventListener('click', toggleNavbar);
+</script>
