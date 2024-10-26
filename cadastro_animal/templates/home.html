@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% bootstrap_css %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<style>
+   /*
+        PAGINA HOME
+*/
+
+ /* Centraliza e define a largura máxima da página */
+ .page-container {
+  max-width: 700px; /* Define uma largura máxima para toda a página */
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Ajusta o carrossel ao tamanho da página */
+.carousel-container {
+  max-width: 100%; /* Ajusta o carrossel à largura do container */
+}
+
+
+.custom-caption {
+  background-color: rgba(0, 0, 0, 0.192);
+  border-radius: 8px;
+  display: inline-block;
+
+}
+</style>
+
+<div class="d-flex flex-column">
+    <!-- Hero Section (Carousel) -->
+    <div class="flex-grow-1">
+        <div class="container-fluid px-0">
+
+            <div class="container mt-5">
+                <h1 class="text-center m-4">Bem-vindos ao Abrigo Animal</h1>
+
+            </div>
+
+            <!-- Carrossel -->
+        <div id="carouselExampleIndicators" class="carousel slide carousel-container" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {% for animal in animais %}
+                <button type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"
+                    aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
+                {% endfor %}
+            </div>
+            <div class="carousel-inner">
+                {% for animal in animais %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    {% if animal.galeria.first %}
+                    <img src="{{ animal.galeria.first.imagem.url }}" class="d-block w-100"
+                            alt="Imagem de {{ animal.nome|capfirst }}" style="height: 60vh; object-fit: cover;">
+                    {% else %}
+                    <img src="{% static 'img\default.png' %}" class="d-block w-100" alt="Imagem padrão"
+                            style="height: 60vh; object-fit: cover;">
+                    {% endif %}
+                    <div class="carousel-caption d-none d-md-block custom-caption">
+                        <h5 class="card-title display-6">{{ animal.nome|capfirst }}</h5>
+                        <p class="card-text">{{ animal.idade }} anos | {{ animal.especie|capfirst }} </p>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+
+        </div>
+        <div class="container ">
+            <h2 class="text-center m-4">Adote. Não Compre.</h2>
+
+
+        </div>
+        </div>
+        {% endblock %}

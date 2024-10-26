@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
-
 {% load bootstrap5 %}
 {% load static %}
+{% bootstrap_css %}
+
+{% block title %}
+Pesquisar um animal
+{% endblock %}
 
 {% block content %}
 
@@ -18,25 +22,30 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100">
                     {% if animal.galeria.first %}
-                    <img src="{{ animal.galeria.first.imagem.url }}" class="card-img-top"
-                        alt="Imagem de {{ animal.nome }}" style="height: 200px; object-fit: cover;">
+                    <img src="{{ animal.galeria.first.imagem.url }}" class="card-img-top" alt="Imagem de {{ animal.nome|capfirst }}" style="height: 200px; object-fit: cover;">
                     {% else %}
-                    <img src="{% static 'img\imagem_default.jpg' %}" class="card-img-top"
-                        alt="Imagem de {{ animal.nome }}" style="height: 200px; object-fit: cover;">
+                    <img src="{% static 'img\default.png' %}" class="card-img-top" alt="Imagem de {{ animal.nome|capfirst }}" style="height: 150px; object-fit: cover;">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title display-6">{{ animal.nome|capfirst }}</h5>
-                        <p class="card-text">{{ animal.idade }} anos | {{ animal.especie|capfirst }} | {{
-                            animal.sexo|capfirst }}</p>
-                        <a href="{% url 'detalhe_animal' animal.id %}" class="btn btn-outline-primary w-100">Ver mais
-                            detalhes</a>
-                        <a href="{% url 'detalhe_animal' animal.id %}" class="btn btn-outline-primary w-100">Ver mais
-                            detalhes</a>
+                        <p class="card-text">{{ animal.idade }} anos | {{ animal.especie|capfirst }} | {{ animal.sexo|capfirst }}</p>
+                    <!-- Botão de adoção -->
+                     <div class="d-flex">
+                        <div class="p-2">
+                            <a href="{% url 'detalhe_animal' animal.id %}" class="btn btn-outline-primary">Ver mais </a>
+                        </div>
+                        <div class="p-2">
+                            <a href="{% url 'adotar_animais' %}" class="btn btn-outline-success">Adotar </a>
+                        </div>
+                   </div>
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <p class="text-center">Nenhum animal cadastrado.</p>
             {% endfor %}
         </div>
+
     </div>
 
     {% else %}

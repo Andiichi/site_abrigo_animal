@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles', 
     'cadastro_animal',
+    'adocao_gestao',
     'bootstrap5',
 ]
 

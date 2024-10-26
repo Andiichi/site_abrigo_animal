@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Barrio&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 
+/*
+        CADASTRO ANIMAL
+*/
+
 .barrio-regular {
     font-family: "Barrio", system-ui;
     font-weight: 400;
@@ -46,3 +50,32 @@
     box-shadow: none; /* Remove sombra */
   }
   
+
+  /* CARD DETALHES ANIMAL */
+
+  /* Estilo do card centralizado e com sombra */
+  .detail-card {
+    max-width: 900px;
+    margin: 0 30px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo das imagens da galeria */
+.gallery-img {
+    height: 350px;
+    width: 350px;
+    object-fit: cover;
+    margin: 10px;
+}
+
+.texto-criacao{
+    font-size: 18px;
+}
+
+
+
+/* Adoção botão status login usuario */
+
+.status-adocao {
+    display: none;
+}

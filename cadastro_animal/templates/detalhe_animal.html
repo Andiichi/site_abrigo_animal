@@ -1,62 +1,73 @@
 {% extends 'base.html' %}
-
-{% load static %}
 {% load bootstrap5 %}
+{% load static %}
 {% bootstrap_css %}
+
+{% block title %}
+Detalho do {{ animal.nome }}
+{% endblock %}
 
 {% block content %}
 
-<div class="container-fluid p-4 d-flex flex-column min-vh-100 fs-4">
-
-    <h1 class="display-6">Detalhes do <strong>{{ animal.nome|capfirst}}</strong></h1>
-
-    <div class="card mt-4" style="max-width: 100%;">
-        <div class="card-body">
-
-            <div class="row g-2">
-                <!-- Coluna para a imagem principal -->
-                <div class="col-md-4">
-                    {% if animal.galeria.first %}
-                    <img src="{{ animal.galeria.first.imagem.url }}" alt="Imagem de {{ animal.nome }}"
-                        class="img-fluid rounded" style="height: 100%; object-fit: cover;">
-                    {% else %}
-                    <img src="{% static 'img/default.png' %}" alt="Imagem padrão" class="img-fluid rounded"
-                        style="height: 100%; object-fit: cover;">
-                    {% endif %}
-                </div>
-
-                <!-- Coluna para os detalhes -->
-                <div class="col-md-8">
-                    <h5 class="card-title"><strong>Nome (Apelido):</strong> {{ animal.nome|capfirst}}</h5>
-                    <p class="card-text"><strong>Idade:</strong> {{ animal.idade }} anos</p>
-                    <p class="card-text"><strong>Raça:</strong> {{ animal.raca|capfirst }}</p>
-                    <p class="card-text"><strong>Sexo:</strong> {{ animal.sexo|capfirst }}</p>
-                    <p class="card-text"><strong>Espécie:</strong> {{ animal.especie|capfirst }}</p>
-
-                    <!-- Botão de adoção -->
-                    <div class="mt-4">
-                        <a href="#" class="btn btn-primary">Adotar {{ animal.nome|capfirst }}</a>
+    <div class="container-fluid p-4 d-flex flex-column min-vh-100 fs-4">
+        <h1 class="display-6">Detalhes do <strong>{{ animal.nome|capfirst }}</strong></h1>
+    
+        <!-- Card de detalhes -->
+        <div class="card detail-card">
+            <div class="card-body">
+                <div class="row g-6 align-items-center">
+                    <!-- Coluna para a imagem principal -->
+                    <div class="col-md-4 text-center">
+                        {% if animal.galeria.first %}
+                        <img src="{{ animal.galeria.first.imagem.url }}" alt="Imagem de {{ animal.nome }}"
+                            class="img-fluid rounded" style="height: 100%; object-fit: cover;">
+                        {% else %}
+                        <img src="{% static 'img/default.png' %}" alt="Imagem padrão" class="img-fluid rounded"
+                            style="height: 100%; object-fit: cover;">
+                        {% endif %}
                     </div>
+    
+                    <!-- Coluna para os detalhes -->
+                    <div class="col-md-8 pt-4">
+                        <p class="card-text"><strong>Nome:</strong> {{ animal.nome|capfirst }}</p>
+                        <p class="card-text"><strong>Idade:</strong> {{ animal.idade }} anos</p>
+                        <p class="card-text"><strong>Sexo:</strong> {{ animal.sexo|capfirst }}</p>
+                        <p class="card-text"><strong>Espécie:</strong> {{ animal.especie|capfirst }}</p>
+    
+                        
+                        <!-- Botão de adoção -->
+                     <div class="d-flex justify-content-start">
+                        <div class="status-adocao mx-3">
+                            <a href="{% url 'detalhe_animal' animal.id %}" class="btn btn-outline-primary">Ver status da adoção </a>
+                        </div>
+                        <div class=" mx-3">
+                            <a href="{% url 'adote' %}" class="btn btn-outline-success">Adotar <strong>{{ animal.nome|capfirst }}</strong> </a>
+                        </div>
+                   </div>
 
+
+                    </div>
                 </div>
-          
+            </div>
+    
+            <!-- Header com data de criação -->
+            <div class="card-header ">
+                <p class="card-text texto-criacao"><small class="text-muted">Criado em: {{ animal.data_criacao|date:"d/m/Y" }}</small></p>
             </div>
         </div>
-        <!-- header com data de criação -->
-        <div class="card-header">
-            <p class="card-text"><small class="text-muted">Criado em: {{ animal.data_criacao|date:"d/m/Y" }}</small></p>
+     <!-- Galeria de fotos (excluindo a primeira imagem) -->
+     <div class="p-4">
+        <h2>Galeria de Fotos</h2>
+        <div class="d-flex flex-wrap justify-content-start">
+            {% for item in animal.galeria.all %}
+            {% if not forloop.first %}
+            <img src="{{ item.imagem.url }}" alt="{{ item.imagem.url }}" class="img-fluid rounded gallery-img">
+            {% endif %}
+            {% endfor %}
         </div>
-</div>
-    <!-- Galeria de fotos -->
-<div class="p-4">
-    <h2 >Galeria de Fotos</h2>
-    {% for item in animal.galeria.all %}
-    <img src="{{ item.imagem.url }}" class="img-thumbnail h-100 w-200" alt="{{ item.imagem.url }}">
-  
-        {% endfor %}
     </div>
-  
- 
+
+
 </div>
 </div>
 {% endblock %}

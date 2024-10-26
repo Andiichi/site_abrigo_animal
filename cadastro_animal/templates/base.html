@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,16 +12,17 @@
     {% load static %}
     <!-- Link do Google Material Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    
+
     <!-- pagina de estilo styles css -->
-     <link rel="stylesheet" href="{% static 'css\styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css\styles.css' %}">
 
     <!-- Script do bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
 
     <!-- Titulo de cada aba -->
-    <title>{% block title %}Página inicial{% endblock %}</title>      
+    <title>Abrigo Animal | {% block title %}Página inicial{% endblock %}</title>
+
 </head>
 
 <body class="poppins-regular">
@@ -33,6 +35,13 @@
 
 
     {% include 'footer.html' %}
+
+
+    {% block scripts %}
+    <!-- Carregar jQuery (necessário para o carousel do Bootstrap 5 funcionar) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {% endblock %}
 
 </body>
 

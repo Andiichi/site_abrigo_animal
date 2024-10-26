@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
-
-{% load static %}
 {% load bootstrap5 %}
+{% load static %}
 {% bootstrap_css %}
+
+{% block title %}
+Lista de animais disponiveis
+{% endblock %}
 
 {% block content %}
 <div class="container my-4">
@@ -20,7 +23,17 @@
                 <div class="card-body">
                     <h5 class="card-title display-6">{{ animal.nome|capfirst }}</h5>
                     <p class="card-text">{{ animal.idade }} anos | {{ animal.especie|capfirst }} | {{ animal.sexo|capfirst }}</p>
-                    <a href="{% url 'detalhe_animal' animal.id %}" class="btn btn-outline-primary w-100">Ver mais detalhes</a>
+
+                     <!-- Botão de adoção -->
+                     <div class="d-flex justify-content-start">
+                        <div class="">
+                            <a href="{% url 'detalhe_animal' animal.id %}" class="btn btn-outline-primary">Ver mais </a>
+                        </div>
+                        <div class="">
+                            <a href="{% url 'adotar_animais' %}" class="btn btn-outline-success ms-3">Adotar</a>
+                        </div>
+                   </div>
+                    
                 </div>
             </div>
         </div>

@@ -9,6 +9,10 @@ from .forms import FormCadastroAnimal
 from .models import GaleriaAnimal, CadastroAnimal
 
 
+def home(request):
+    animais = CadastroAnimal.objects.filter(disponivel = True)
+    
+    return render(request, 'home.html', {'animais': animais})
 
 def cadastro(request):
     if request.method == 'POST':
@@ -99,6 +103,3 @@ def pesquisar_animais(request):
     else:
         return render(request, 'pagina_pesquisa.html', {})
     
-
-def adotar_animais(request):
-    return render(request, 'adotar.html')
