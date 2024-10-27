@@ -21,7 +21,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('cadastro_animal.urls')),
-    path('', include('adocao_gestao.urls'))
+    path('', include('cadastro_animal.urls')), #URL home, quando acessar o 'http://127.0.0.1:8000/' ou 'localhost:8000'
+    path('animais/', include('cadastro_animal.urls')), 
+    path('adocoes/', include('adocao_gestao.urls')), 
+    path('usuarios/', include('cadastro_usuario.urls')) 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

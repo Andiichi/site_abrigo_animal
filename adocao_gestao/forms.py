@@ -1,4 +1,5 @@
 from django import forms
+from django.core.validators import RegexValidator
 
 from cadastro_animal.models import CadastroAnimal
 
@@ -9,17 +10,17 @@ class FormCadastroAdocao(forms.ModelForm):
     maior_18 = forms.BooleanField(
         required=True,
         label="Sou maior de 18 anos",
-        help_text="Você deve ter pelo menos 18 anos para adotar um animal."
+        help_text="<br><small>Você deve ter pelo menos 18 anos para adotar um animal.</small>"
     )
     nao_devolucao = forms.BooleanField(
         required=True,
         label="Concordo em não devolver o animal",
-        help_text="<br>Uma vez adotado, o animal deve ser mantido em seu lar para sempre."
+        help_text="<br><small>Uma vez adotado, o animal deve ser mantido em seu lar para sempre.</small>"
     )
     ler_contrato = forms.BooleanField(
         required=True,
         label="Li e aceito o contrato de adoção",
-        help_text="É importante que você leia e compreenda o contrato antes de adotar."
+        help_text="<br><small>É importante que você leia e compreenda o contrato antes de adotar.</small>"
     )
 
     class Meta:
@@ -40,14 +41,14 @@ class FormCadastroAdocao(forms.ModelForm):
                 'placeholder': 'Digite seu email',
                 'class': 'form-control'
             }),
-            'animal': forms.Select(attrs={'class': 'form-select'}),
+            'animal': forms.Select(attrs={'class': 'form-select text-capitalize'}),
         }
 
         labels = {
             'nome': 'Nome Completo',
             'telefone': 'Telefone',
             'email': 'Email',
-            'animal': 'Bichinho para Adoção'
+            'animal': 'Selecione o animal'
         }
 
     def __init__(self, *args, **kwargs):

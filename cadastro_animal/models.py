@@ -48,7 +48,7 @@ class CadastroAnimal(models.Model):
     class Meta:
         verbose_name = 'Cadastro de Animal'
         verbose_name_plural = 'Cadastro de Animais'
-        ordering = ['nome']
+        ordering = ['-nome']
 
     def __str__(self):
         return self.nome

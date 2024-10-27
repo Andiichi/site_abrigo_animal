@@ -2,7 +2,9 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.contrib import messages
 
+
 from .models import CadastroAnimal, GaleriaAnimal
+
 
 class AnimalImagemInline(admin.TabularInline):
     model = GaleriaAnimal
@@ -14,6 +16,7 @@ class CadastroAnimalAdmin(admin.ModelAdmin):
     ordering = ['nome']  # Ordenação por nome
 
     inlines = [AnimalImagemInline]
+
 
     # Função para deletar a imagem
     def delete_image(self, request, obj):
@@ -66,6 +69,10 @@ class CadastroAnimalAdmin(admin.ModelAdmin):
         self.message_user(request, f'{updated} animal(is) marcado(s) como Macho.')
 
     actions = [marcar_como_macho, marcar_como_femea]
+
+    class Meta:
+        verbose_name = 'Cadastrar animal'
+        verbose_name_plural = 'Cadastramento de animais'
 
 
 admin.site.register(CadastroAnimal, CadastroAnimalAdmin)

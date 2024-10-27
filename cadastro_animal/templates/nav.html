@@ -9,25 +9,37 @@
 
     <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo01">
       <a class="navbar-brand me-5 barrio-regular" href="/">Abrigo Animal</a>
-      
+
       <!-- Centraliza os itens de navegação -->
       <ul class="navbar-nav d-flex align-items-center gap-3">
         <!-- Home link com ícone -->
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="/">
-            <span class="material-symbols-outlined me-1">home</span> Início
+             Início
           </a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="{% url 'lista_animais' %}">
-            <span class="material-symbols-outlined me-1">pets</span> Lista de animais
+             Lista de animais
           </a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="{% url 'adocao_gestao:adote' %}">
-            <span class="material-symbols-outlined me-1">assignment</span> Adote
+            Adote
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="{% url 'adocao_gestao:adote' %}">
+            Sobre
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="{% url 'adocao_gestao:adote' %}">
+            Contato
           </a>
         </li>
 
@@ -35,7 +47,8 @@
         <li class="nav-item ms-3">
           <form class="d-flex align-items-center" role="search" action="{% url 'pesquisar_animais' %}">
             <div class="input-group rounded-search">
-              <input class="form-control rounded-start" type="search" placeholder="Pesquisar um pet..." aria-label="Search" name="pesquisa_query">
+              <input class="form-control rounded-start" type="search" placeholder="Pesquisar um pet..."
+                aria-label="Search" name="pesquisa_query">
               <button class="input-group-text bg-primary text-white rounded-end border-0" type="submit">
                 <span class="material-symbols-outlined">search</span>
               </button>
@@ -43,14 +56,22 @@
           </form>
         </li>
       </ul>
+      <!-- fim do menu site -->
 
       <!-- Botão de login/logout com dropdown alinhado à direita -->
       <div class="d-flex ms-auto">
+
+        <!-- abre um modal com algumas infos do site -->
+        <a href="" class="nav-link d-flex align-items-center pe-auto" data-bs-toggle="modal" data-bs-target="#helpModal">
+          <span class="material-symbols-outlined me-2" >help</span>
+        </a>
         <div class="btn-group">
           <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
             data-bs-display="static" aria-expanded="false">
             Olá, Visitante!
           </button>
+
+          <!-- inicio do menu usuario-->
           <ul class="dropdown-menu dropdown-menu-lg-end">
             <li>
               <a class="dropdown-item d-flex align-items-center" href="/admin">
@@ -58,19 +79,66 @@
               </a>
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <span class="material-symbols-outlined me-2">help</span> Ajuda
-              </a>
+              <hr class="dropdown-divider">
             </li>
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_animal' %}">
                 <span class="material-symbols-outlined me-2">add_circle</span> Cadastro de pet
               </a>
             </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'adocao_gestao:lista_adocoes' %}">
+                <span class="material-symbols-outlined me-2">list_alt</span> Lista de adoções
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:cadastro_usuario' %}">
+                <span class="material-symbols-outlined me-2">add_circle</span> Cadastro de usuário
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:lista_usuarios' %}">
+                <span class="material-symbols-outlined me-2">patient_list</span> Lista de usuários
+              </a>
+            </li>
           </ul>
+        <!-- fim do menu dropdown -->
+
         </div>
-      </div> <!-- fim do menu dropdown -->
+      </div>
 
     </div>
   </nav>
+</div>
+
+<!-- modal do botao help -->
+
+<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="helpModalLabel">Ajuda do Site</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <p>Aqui você encontra informações sobre como usar o site.</p>
+              <ul>
+                  <li>Para navegar, use o menu superior.</li>
+                  <li>Para ver detalhes dos itens, clique no botão correspondente.</li>
+                  <li>Se precisar de suporte, entre em contato através da seção de Contato.</li>
+              </ul>
+
+              <strong>Abraços,<br> Direção</strong>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Fechar</button>
+          </div>
+      </div>
+  </div>
 </div>
