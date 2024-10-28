@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% bootstrap_css %}
+
+{% block title %}
+Contato
+{% endblock %}
+
+{% block content %}
+
+<div class="d-grid gap-2 col-6 mx-auto mt-5">
+    <h1 class="text-center">Entre em contato com a gente</h1>
+    <div class="mb-3 card">
+        <div class="card-body">
+            <form enctype="multipart/form-data"  action="" method="POST">
+                {% csrf_token %}
+
+                
+                <div class="row g-3">
+                    <div class="col">
+                        <div class="form-floating ">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Nome">
+                            <label for="floatingInput">Digite seu nome</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">Digite seu email</label>
+                        </div>
+            
+                    </div>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select class="form-select" id="floatingSelectGrid" >
+                      <option selected>Selecione o assunto da mensagem</option>
+                      <option value="1">Cadastro de adoção</option>
+                      <option value="2">Problemas no cadastro de adoção</option>
+                      <option value="3">Problemas no site</option>
+                      <option value="3">Prazo para retorno da adoção</option>
+                      <option value="5">Outro</option>
+                    </select>
+                    <label for="floatingSelectGrid">Escolha um assunto</label>
+                  </div>
+    
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Mensagem" id="floatingTextarea2"
+                        style="height: 200px"></textarea>
+                    <label for="floatingTextarea2">Digite sua mensagem</label>
+                </div>
+    
+                <div class="mt-4 text-center" >
+                    <button class="btn btn-outline-primary" type="submit" style="width: 150px;">Enviar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<a class="btn btn-outline-primary m-4" href="{% url 'home' %}" role="button">Voltar a home</a>
+
+{% endblock %}

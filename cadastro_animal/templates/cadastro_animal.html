@@ -17,25 +17,55 @@ Cadastro de animais
         Animal cadastrado com sucesso!
     </div>
     {% endif %}
-    
+
     {% if error %}
     <div class="alert alert-danger" role="alert">
         {{ error }}
     </div>
     {% endif %}
 
-    <div class="mb-3 card">
-        <div class="card-body">
-            <form enctype="multipart/form-data"  action="" method="POST">
+    <div class="mb-3 card mx-auto" style="height: auto; width: 650px;">
+        <div class="card-body" >
+            <form enctype="multipart/form-data" action="" method="POST">
                 {% csrf_token %}
 
-                {% bootstrap_form form_animal %}
+                <!-- Nome e Idade -->
+                <div class="row g-3">
+                    <div class="col">
+                        <div class="form-floating">
+                            {{ form_animal.nome }}
+                            <label for="id_nome">Nome do animal</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating">
+                            {{ form_animal.idade }}
+                            <label for="id_idade">Idade do animal</label>
+                        </div>
+                    </div>
+                </div>
 
-                <label for="animal_imagem">Selecione as imagens:</label>
-                <input class="form-control" type="file" name="animal_imagem" multiple required>
-
+                <!-- Sexo e Espécie -->
+                <div class="row g-3 mt-3">
+                    <div class="col">
+                        <div class="form-floating">
+                            {{ form_animal.sexo }}
+                            <label for="id_sexo">Sexo</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating">
+                            {{ form_animal.especie }}
+                            <label for="id_especie">Espécie</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mt-3 ">
+                    <label for="animal_imagem">Selecione as imagens:</label>
+                    <input class="form-control mt-2" type="file" name="animal_imagem" multiple required>
+                </div>
                 <div class="mt-4 text-center">
-                    <button class="btn btn-outline-primary" type="submit">Cadastrar</button>
+                    <button class="btn btn-outline-primary" type="submit" style="width: 150px;">Cadastrar</button>
                 </div>
             </form>
         </div>
