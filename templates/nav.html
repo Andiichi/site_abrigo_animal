@@ -1,4 +1,5 @@
 {% load static %}
+{% load user_permissao %}
 
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg bg-light shadow-sm">
@@ -66,58 +67,100 @@
           <span class="material-symbols-outlined me-2" >help</span>
         </a>
         <div class="btn-group">
+          {% if user|has_group:"Administrador" %}
+
           <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
-            data-bs-display="static" aria-expanded="false">
-            Olá, Visitante!
-          </button>
+          data-bs-display="static" aria-expanded="false">
+          Olá, {{ user.first_name }}!
+        </button>
 
-          <!-- inicio do menu usuario-->
-          <ul class="dropdown-menu dropdown-menu-lg-end">
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="/admin">
-                <span class="material-symbols-outlined me-2">account_circle</span> Fazer login
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_animal' %}">
-                <span class="material-symbols-outlined me-2">add_circle</span> Cadastro de pet
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'adocao_gestao:lista_adocoes' %}">
-                <span class="material-symbols-outlined me-2">list_alt</span> Lista de adoções
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:cadastro_usuario' %}">
-                <span class="material-symbols-outlined me-2">add_circle</span> Cadastro de usuário
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:lista_usuarios' %}">
-                <span class="material-symbols-outlined me-2">patient_list</span> Lista de usuários
-              </a>
-            </li>
-          </ul>
-        <!-- fim do menu dropdown -->
+        <!-- inicio do menu usuario-->
+        <ul class="dropdown-menu dropdown-menu-lg-end">
+          {% if not user|has_group:"Voluntários" %}
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_animal' %}">
+              <span class="material-symbols-outlined me-2">add_circle</span> Cadastro de pet
+            </a>
+          </li>
+          
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'adocao_gestao:lista_adocoes' %}">
+              <span class="material-symbols-outlined me-2">list_alt</span> Solicitações de adoções
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:cadastro_usuario' %}">
+              <span class="material-symbols-outlined me-2">add_circle</span> Cadastro de usuário
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:lista_usuarios' %}">
+              <span class="material-symbols-outlined me-2">patient_list</span> Lista de usuários
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          {% else %}
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="/admin">
+              <span class="material-symbols-outlined me-2">logout</span> Fazer Logout
+            </a>
+          </li>
+          {% endif %}
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="/admin">
+              <span class="material-symbols-outlined me-2">logout</span> Fazer Logout
+            </a>
+          </li>
+          
+        </ul>
+      <!-- fim do menu dropdown -->
+      </div>
+                  {% else %}
+<!-- menu para fazer login caso não esteja logado -->
+<button type="button" class="btn btn-outline-primary dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown"
+data-bs-display="static" aria-expanded="false">
+    <span class="material-symbols-outlined">
+      person
+      </span>
+      Login
+  </button>
+  <!-- inicio do menu para logar -->
+<ul class="dropdown-menu dropdown-menu-lg-end">
+  <li>
+    <a class="dropdown-item d-flex align-items-center" href="/admin">
+      <span class="material-symbols-outlined me-2">account_circle</span> Fazer login
+    </a>
+  </li>
+  <li>
+    <hr class="dropdown-divider">
+  </li>
+  <li>
+    <a href="" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#helpModalUser">
+      <span class="material-symbols-outlined me-2">help</span> Ajuda login
+    </a>
+  </li>
+  </ul>
 
-        </div>
+  {% endif %}
+
+
+         
+       
       </div>
 
     </div>
   </nav>
 </div>
 
-<!-- modal do botao help -->
+<!-- modal do botao help site - visitante -->
 
 <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -134,7 +177,35 @@
                   <li>Se precisar de suporte, entre em contato através da seção de Contato.</li>
               </ul>
 
-              <strong>Abraços,<br> Direção</strong>
+              <strong>Att,<br> Direção</strong>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Fechar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<!-- modal do botao help usuario login/logout-->
+
+<div class="modal fade" id="helpModalUser" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="helpModalLabel">Ajuda para login</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h3 class="fs-2">Quem tem permissão:</h3>
+              <p>Para ter acesso a parte adiminstrativa necessário realizar o login</p>
+              <ul>
+                  <li>Voluntários que tem seus cadastro feitos ou quem receberam o email</li>
+                  <li>Veterinários contratados e Voluntários</li>
+                  <li>Funcionários do abrigo</li>
+              </ul>
+
+              <strong>Att,<br> Direção</strong>
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Fechar</button>
