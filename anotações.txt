@@ -1,0 +1,7 @@
+Senha /admin
+
+USER - SENHA
+admin - 12345
+rafaela_voluntaria - A@nogueira123
+diogo_vet - A@nogueira123
+sueli_ajudante - A@nogueira123

@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Barrio&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-
 /*
         CADASTRO ANIMAL
 */
@@ -9,52 +8,62 @@
     font-family: "Barrio", system-ui;
     font-weight: 400;
     font-style: normal;
-  }
+}
 
-  .poppins-regular {
+.poppins-regular {
     font-family: "Poppins", serif;
     font-weight: 400;
     font-style: normal;
-  }
+}
 
-
+/* Adicionando transição para hover */
+.nav-link,
+.dropdown-item {
+    transition: color 0.3s ease, color 0.3s ease; /* Transição suave */
+    padding-bottom: 3px;
+}
 
 .nav-link:hover,
 .dropdown-item:hover {
-  color: #0d6efd !important; /* Cor primária Bootstrap */
+    color: #0d6efd !important; /* Cor primária Bootstrap */
+   
+    
+}
+
+.traco-bottom:hover{
+  border-bottom: 3px solid #0d6efd;
+
+}
+
+
+.input-group-text {
+    transition: color 0.3s ease; /* Transição suave para o texto do ícone */
 }
 
 .input-group-text:hover {
-  color: #0d6efd; /* Altera o ícone de pesquisa ao passar o mouse */
-  
+  color: #0d6efd !important; /* Cor primária Bootstrap */
 }
 
-  
 /* Define bordas arredondadas e alinhamento */
 .rounded-search .form-control {
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
-  }
-  
-  .rounded-search .input-group-text {
+}
+
+.rounded-search .input-group-text {
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
-  }
-  
-  .input-group-text:hover {
-    background-color: #0b5ed7; /* Cor primária mais escura ao passar o mouse */
-  }
-  
-  .input-group .form-control {
+}
+
+.input-group .form-control {
     height: 40px; /* Define altura do campo */
     box-shadow: none; /* Remove sombra */
-  }
-  
+}
 
-  /* CARD DETALHES ANIMAL */
+/* CARD DETALHES ANIMAL */
 
-  /* Estilo do card centralizado e com sombra */
-  .detail-card {
+/* Estilo do card centralizado e com sombra */
+.detail-card {
     max-width: 900px;
     margin: 0 30px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
@@ -68,14 +77,11 @@
     margin: 10px;
 }
 
-.texto-criacao{
+.texto-criacao {
     font-size: 18px;
 }
 
-
-
 /* Adoção botão status login usuario */
-
 .status-adocao {
     display: none;
 }

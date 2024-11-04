@@ -1,0 +1,43 @@
+{% load static %}
+{% load user_permissao %}
+
+<!-- Botão de login/logout com dropdown alinhado à direita -->
+<div class="d-flex ms-auto">
+  <div class="btn-group">
+    <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+      Olá, {{ user.first_name }}!
+    </button>
+
+    <!-- Menu de opções do usuário -->
+    <ul class="dropdown-menu dropdown-menu-lg-end">
+      <li>
+        <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_animal' %}">
+          <span class="material-symbols-outlined me-2">add_circle</span> Cadastro de pet
+        </a>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <a class="dropdown-item d-flex align-items-center" href="{% url 'adocao_gestao:lista_adocoes' %}">
+          <span class="material-symbols-outlined me-2">list_alt</span> Solicitações de adoções
+        </a>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:cadastro_usuario' %}">
+          <span class="material-symbols-outlined me-2">add_circle</span> Cadastro de usuário
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:lista_usuarios' %}">
+          <span class="material-symbols-outlined me-2">patient_list</span> Lista de usuários
+        </a>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:logout' %}">
+          <span class="material-symbols-outlined me-2">logout</span> Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

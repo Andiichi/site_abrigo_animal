@@ -1,0 +1,31 @@
+{% load static %}
+{% load user_permissao %}
+
+      <!-- Botão de login/logout com dropdown alinhado à direita -->
+      <div class="d-flex ms-auto">
+
+        <!-- abre um modal com algumas infos do site -->
+        <a href="" class="nav-link d-flex align-items-center pe-auto" data-bs-toggle="modal" data-bs-target="#helpModal">
+          <span class="material-symbols-outlined me-2" >help</span>
+        </a>
+        <div class="btn-group">
+
+          <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
+          data-bs-display="static" aria-expanded="false">
+          Olá, {{ user.first_name }}!
+        </button>
+
+        <!-- inicio do menu usuario-->
+        <ul class="dropdown-menu dropdown-menu-lg-end">
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:logout' %}">
+              <span class="material-symbols-outlined me-2">logout</span> Fazer Logout
+            </a>
+          </li>
+                  
+        </ul>
+      <!-- fim do menu dropdown -->
+      </div>
+</div>
+
+
