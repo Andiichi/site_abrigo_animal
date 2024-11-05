@@ -20,22 +20,22 @@ def cadastro_adocao(request):
                 'form_adocao': FormCadastroAdocao(),  # Reseta o formulário após o envio
                 'sucesso': True
             }
-            return render(request, 'adotar.html', contexto)
+            return render(request, 'templates_gestaoadocao/adotar.html', contexto)
         else:
             contexto = {
                 'form_adocao': form_adocao,
                 'error': 'Error: Verifique as informações abaixo do formulário de adoção!'
             }
-            return render(request, 'adotar.html', contexto)
+            return render(request, 'templates_gestaoadocao/adotar.html', contexto)
     
     else:
         form_adocao = FormCadastroAdocao()
-        return render(request, 'adotar.html', {'form_adocao': form_adocao})
+        return render(request, 'templates_gestaoadocao/adotar.html', {'form_adocao': form_adocao})
  
 
 def lista_adocoes(request):
     adocoes = CadastroAdocao.objects.all().order_by('nome')  # Ordena pelo nome do solicitante
-    return render(request, 'adocao_list.html', {'adocoes': adocoes})
+    return render(request, 'templates_gestaoadocao/adocao_list.html', {'adocoes': adocoes})
 
 
 def aprovar_desaprovar_adocao(request, adocao_id):

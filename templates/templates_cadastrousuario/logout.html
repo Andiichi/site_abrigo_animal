@@ -14,7 +14,7 @@ Cadastrar um usuário
   <div class="card-body">
     <p>Tem certeza que quer fazer o logout?</p>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
       Sim, logout.
     </button>
 
@@ -43,7 +43,7 @@ Cadastrar um usuário
         <p>Tem certeza que quer fazer o logout?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
         <form method="POST">
           {% csrf_token %}
           <button type="submit" class="btn btn-outline-primary">Sim, deslogar!</button>

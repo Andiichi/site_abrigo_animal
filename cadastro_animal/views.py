@@ -58,17 +58,17 @@ def cadastro(request):
                 'form_animal': FormCadastroAnimal(),  # Reseta o formulário após o envio
                 'sucesso': True
             }
-            return render(request, 'cadastro_animal.html', contexto)
+            return render(request, 'templates_cadastroanimal/cadastro_animal.html', contexto)
         else:
             contexto = {
                 'form_animal': form_animal,
                 'error': 'Erro ao cadastrar animal. Verifique os dados informados.'
             }
-            return render(request, 'cadastro_animal.html', contexto)
+            return render(request, 'templates_cadastroanimal/cadastro_animal.html', contexto)
     
     else:
         form_animal = FormCadastroAnimal()
-        return render(request, 'cadastro_animal.html', {'form_animal': form_animal})
+        return render(request, 'templates_cadastroanimal/cadastro_animal.html', {'form_animal': form_animal})
 
                                                              
 
@@ -76,7 +76,7 @@ def cadastro(request):
 def lista_animais(request):
     animais = CadastroAnimal.objects.filter(disponivel = True)
     
-    return render(request, 'lista_animais.html', {'animais': animais})
+    return render(request, 'templates_cadastroanimal/lista_animais.html', {'animais': animais})
 
 
 def detalhe_animal(request, animal_id):
@@ -84,7 +84,7 @@ def detalhe_animal(request, animal_id):
     animal = get_object_or_404(CadastroAnimal, id=animal_id)
     
     # Renderiza o template e passa o objeto `animal` como contexto
-    return render(request, 'detalhe_animal.html', {'animal': animal})
+    return render(request, 'templates_cadastroanimal/detalhe_animal.html', {'animal': animal})
 
 
 def pesquisar_animais(request):

@@ -5,10 +5,10 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 
 def cadastro_usuario(request):
-    return render(request, 'cadastro_usuario.html')
+    return render(request, 'templates_cadastrousuario/cadastro_usuario.html')
 
 def lista_usuarios(request):
-    return render(request, 'lista_usuarios.html')
+    return render(request, 'templates_cadastrousuario/lista_usuarios.html')
 
 def login_view(request):
     if request.method == 'POST':
@@ -25,7 +25,7 @@ def login_view(request):
             print(messages)
             return redirect('cadastro_usuario:login')  # Redireciona de volta para o login em caso de erro
     
-    return render(request, 'login.html')
+    return redirect('cadastro_usuario:login') 
 
 
 def logout_view(request):
@@ -33,4 +33,4 @@ def logout_view(request):
         django_logout(request)  # Chama o logout do Django
         messages.success(request, "Logout realizado com sucesso.")
         return redirect('home')  # Redireciona para a página inicial ou a que desejar
-    return render(request, "logout.html", {})
+    return render(request, "templates_cadastrousuario/logout.html", {})
