@@ -5,59 +5,6 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<style>
-    /* Estilo da Página Home */
-    .page-container {
-        max-width: 700px;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    .carousel-container {
-        max-width: 100%;
-    }
-
-    .custom-caption {
-        background-color: rgba(0, 0, 0, 0.192);
-        border-radius: 8px;
-        display: inline-block;
-    }
-
-    .toast {
-        top: 50px;
-        right: 10px;
-        z-index: 1050;
-        background-color: rgba(4, 255, 4, 0.185);
-    }
-
-    /* cards animais */
-    .card-img-overlay {
-        opacity: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-        transition: opacity, background-color 500ms ease-in-out;
-        /* Transição suave de opacidade */
-    }
-
-    /* Quando o card está em hover, define a opacidade para 1 com atraso */
-    .card:hover .card-img-overlay {
-        opacity: 1;
-        background-color: rgba(0, 0, 0, 0.788);
-    }
-
-    .detalhes-pet:hover {
-        box-shadow: 0 4px 8px 0 rgba(93, 181, 253, 0.2), 0 6px 20px 0 rgba(80, 107, 255, 0.19);
-
-    }
-
-    .adotar-pet:hover {
-        box-shadow: 0 4px 8px 0 rgba(116, 250, 150, 0.2), 0 6px 20px 0 rgba(80, 107, 255, 0.19);
-
-    }
-</style>
 
 {% if messages %}
 <div id="liveToast" class="toast align-items-center position-fixed" role="alert" aria-live="assertive"
@@ -128,16 +75,6 @@
 </div>
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var toastElement = document.getElementById("liveToast");
-        if (toastElement) {
-            var toast = new bootstrap.Toast(toastElement, {
-                delay: 5000
-            });
-            toast.show();
-        }
-    });
-</script>
+
 
 {% endblock %}

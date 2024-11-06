@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', 
+    'home',
     'cadastro_animal',
     'cadastro_usuario',
     'adocao_gestao',

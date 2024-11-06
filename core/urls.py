@@ -18,23 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from django.views.generic import TemplateView
 
-from cadastro_animal.views import pesquisar_animais
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('cadastro_animal.urls')), #URL home, quando acessar o 'http://127.0.0.1:8000/' ou 'localhost:8000'
+    path('', include('home.urls')), #URL home, quando acessar o 'http://127.0.0.1:8000/' ou 'localhost:8000'
     path('animais/', include('cadastro_animal.urls')), 
     path('adocoes/', include('adocao_gestao.urls')), 
     path('usuarios/', include('cadastro_usuario.urls')) ,
-
-    #pagina de pesquisa do cadastro_animais
-    path("pesquisar-animais/", pesquisar_animais, name="pesquisar_animais"),
-
-    # URL para a página estática
-    path('sobre/', TemplateView.as_view(template_name='sobre.html'), name='sobre'),
-    path('contato/', TemplateView.as_view(template_name='contato.html'), name='contato'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
