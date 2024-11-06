@@ -1,171 +1,124 @@
 {% load static %}
 {% load user_permissao %}
- 
-  <nav class="container-fluid navbar navbar-expand-lg bg-light shadow-sm px-5 py-3">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+
+<style>
+    .icon-search:hover{
+        transform: scale(1.2);
+        color: white;
+    }
+</style>
+
+<nav class="container-fluid navbar navbar-expand-lg bg-light shadow-sm px-5 py-3">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo01">
-      <a class="navbar-brand me-5 barrio-regular" href="/">Abrigo Animal</a>
+        <a class="navbar-brand me-5 barrio-regular" href="/">Abrigo Animal</a>
 
-      <!-- Centraliza os itens de navegação -->
-      <ul class="navbar-nav d-flex align-items-center gap-3 ">
-        <!-- Home link com ícone -->
-        <li class="nav-item traco-bottom">
-          <a class="nav-link d-flex align-items-center " href="/">
-            Início
-          </a>
-        </li>
+        <ul class="navbar-nav d-flex align-items-center gap-3">
+            <li class="nav-item traco-bottom">
+                <a class="nav-link d-flex align-items-center" href="/">Home</a>
+            </li>
+            <li class="nav-item traco-bottom">
+                <a class="nav-link d-flex align-items-center" href="{% url 'adocao_gestao:adote' %}">Adote</a>
+            </li>
+            <li class="nav-item traco-bottom">
+                <a class="nav-link d-flex align-items-center" href="{% url 'sobre' %}">Sobre</a>
+            </li>
+            <li class="nav-item traco-bottom">
+                <a class="nav-link d-flex align-items-center" href="{% url 'contato' %}">Contato</a>
+            </li>
+        </ul>
 
-        <li class="nav-item traco-bottom">
-          <a class="nav-link d-flex align-items-center" href="{% url 'lista_animais' %}">
-            Lista de animais
-          </a>
-        </li>
+        <div class="d-flex ms-auto">
+            <a href="#" class="nav-link d-flex align-items-center pe-auto" data-bs-toggle="modal" data-bs-target="#helpModal">
+                <span class="material-symbols-outlined me-2">help</span>
+            </a>
 
-        <li class="nav-item traco-bottom">
-          <a class="nav-link d-flex align-items-center" href="{% url 'adocao_gestao:adote' %}">
-            Adote
-          </a>
-        </li>
-
-        <li class="nav-item traco-bottom">
-          <a class="nav-link d-flex align-items-center" href="{% url 'sobre' %}">
-            Sobre
-          </a>
-        </li>
-
-        <li class="nav-item traco-bottom">
-          <a class="nav-link d-flex align-items-center" href="{% url 'contato' %}">
-            Contato
-          </a>
-        </li>
-      </ul>
-      <!-- fim do menu site -->
-
-
-      <!-- Botão de login/logout com dropdown alinhado à direita -->
-      <div class="d-flex ms-auto">
-
-        <!-- abre um modal com algumas infos do site -->
-        <a href="" class="nav-link d-flex align-items-center pe-auto" data-bs-toggle="modal" data-bs-target="#helpModal">
-          <span class="material-symbols-outlined me-2" >help</span>
-        </a>
-
-        <!-- Barra de pesquisa arredondada -->
-        <div class="px-2">
-          <form class="d-flex align-items-center" role="search" action="{% url 'pesquisar_animais' %}">
-            <div class="input-group rounded-search">
-              <input class="form-control rounded-start" type="search" placeholder="Pesquisar um pet..."
-                aria-label="Search" name="pesquisa_query">
-              <button class="input-group-text bg-primary text-white rounded-end border-0" type="submit">
-                <span class="material-symbols-outlined">search</span>
-              </button>
+            <div class="px-2">
+                <form class="d-flex align-items-center" role="search" action="{% url 'pesquisar_animais' %}">
+                    <div class="input-group rounded-search">
+                        <input class="form-control rounded-start" type="search" placeholder="Pesquisar um pet..." aria-label="Search" name="pesquisa_query">
+                        <button class="input-group-text bg-primary text-white rounded-end border-0" type="submit">
+                            <span class="material-symbols-outlined icon-search">search</span>
+                        </button>
+                    </div>
+                </form>
             </div>
-          </form>
+
+            {% if user|has_group:"Administrador" %}
+                {% include 'login-Admin-Vet_Ajudante.html' %}
+            {% elif user|has_group:"Vet_Ajudante" %}
+                {% include 'login-Admin-Vet_Ajudante-admin.html' %}
+            {% elif user|has_group:"Voluntários" %}
+                {% include 'login-voluntario.html' %}
+            {% else %}
+                <button type="button" class="btn btn-outline-primary dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <span class="material-symbols-outlined">person</span> Login
+                </button>
+                <ul class="dropdown-menu dropdown-menu-lg-end">
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:login' %}">
+                            <span class="material-symbols-outlined me-2">account_circle</span> Fazer login
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a href="#" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#helpModalUser">
+                            <span class="material-symbols-outlined me-2">help</span> Ajuda login
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
         </div>
-
-        {% if user|has_group:"Administrador" %}
-
-              {% include 'login-Admin-Vet_Ajudante.html' %}
-
-        {% elif user|has_group:"Vet_Ajudante" %}
-
-              {% include 'login-Admin-Vet_Ajudante-admin.html' %}
-
-        {% elif user|has_group:"Voluntários" %}
-
-              {% include 'login-voluntario.html' %}
-
-        {% else %}
-
-        <!-- menu para fazer login caso não esteja logado -->
-        <button type="button" class="btn btn-outline-primary dropdown-toggle d-flex align-items-center"
-          data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-          <span class="material-symbols-outlined">
-            person
-          </span>
-          Login
-        </button>
-        <!-- inicio do menu para logar -->
-        <ul class="dropdown-menu dropdown-menu-lg-end">
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="{% url 'cadastro_usuario:login' %}">
-              <span class="material-symbols-outlined me-2">account_circle</span> Fazer login
-            </a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li>
-            <a href="" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal"
-              data-bs-target="#helpModalUser">
-              <span class="material-symbols-outlined me-2">help</span> Ajuda login
-            </a>
-          </li>
-        </ul>
-        {% endif %}
-
-      </div>
     </div>
-  </nav>
+</nav>
 
-
-
-<!-- modal do botao help site - visitante -->
-
+<!-- Modais de Ajuda -->
 <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="helpModalLabel">Ajuda do Site</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Aqui você encontra informações sobre como usar o site.</p>
-        <ul>
-          <li>Para navegar, use o menu superior.</li>
-          <li>Para ver detalhes dos itens, clique no botão correspondente.</li>
-          <li>Se precisar de suporte, entre em contato através da seção de Contato.</li>
-        </ul>
-
-        <strong>Att,<br> Direção</strong>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Fechar</button>
-      </div>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="helpModalLabel">Ajuda do Site</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Aqui você encontra informações sobre como usar o site.</p>
+                <ul>
+                    <li>Para navegar, use o menu superior.</li>
+                    <li>Para ver detalhes dos itens, clique no botão correspondente.</li>
+                    <li>Se precisar de suporte, entre em contato através da seção de Contato.</li>
+                </ul>
+                <strong>Att,<br> Direção</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-
-
-
-<!-- modal do botao help usuario login/logout-->
-
 <div class="modal fade" id="helpModalUser" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="helpModalLabel">Ajuda para login</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <h3 class="fs-2">Quem tem permissão:</h3>
-        <p>Para ter acesso a parte adiminstrativa necessário realizar o login</p>
-        <ul>
-          <li>Voluntários que tem seus cadastro feitos ou quem receberam o email</li>
-          <li>Veterinários contratados e Voluntários</li>
-          <li>Funcionários do abrigo</li>
-        </ul>
-
-        <strong>Att,<br> Direção</strong>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Fechar</button>
-      </div>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="helpModalLabel">Ajuda para login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3 class="fs-2">Quem tem permissão:</h3>
+                <p>Para ter acesso à parte administrativa é necessário realizar o login.</p>
+                <ul>
+                    <li>Voluntários que têm seus cadastros feitos ou que receberam o e-mail.</li>
+                    <li>Veterinários contratados e Voluntários.</li>
+                    <li>Funcionários do abrigo.</li>
+                </ul>
+                <strong>Att,<br> Direção</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

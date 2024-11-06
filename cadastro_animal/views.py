@@ -8,11 +8,14 @@ from django.core.files.storage import FileSystemStorage
 from .forms import FormCadastroAnimal
 from .models import GaleriaAnimal, CadastroAnimal
 
+                     
 
-def home(request):
+
+def lista_animais(request):
     animais = CadastroAnimal.objects.filter(disponivel = True)
     
     return render(request, 'home.html', {'animais': animais})
+
 
 def cadastro(request):
     if request.method == 'POST':
@@ -70,15 +73,7 @@ def cadastro(request):
         form_animal = FormCadastroAnimal()
         return render(request, 'templates_cadastroanimal/cadastro_animal.html', {'form_animal': form_animal})
 
-                                                             
-
-
-def lista_animais(request):
-    animais = CadastroAnimal.objects.filter(disponivel = True)
-    
-    return render(request, 'templates_cadastroanimal/lista_animais.html', {'animais': animais})
-
-
+                                        
 def detalhe_animal(request, animal_id):
     # Busca o animal pelo ID, ou retorna 404 se não for encontrado
     animal = get_object_or_404(CadastroAnimal, id=animal_id)

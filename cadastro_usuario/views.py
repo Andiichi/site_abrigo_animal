@@ -10,6 +10,7 @@ def cadastro_usuario(request):
 def lista_usuarios(request):
     return render(request, 'templates_cadastrousuario/lista_usuarios.html')
 
+
 def login_view(request):
     if request.method == 'POST':
         nome = request.POST.get('nome')
@@ -22,10 +23,10 @@ def login_view(request):
             return redirect('home')  # Redireciona para a página inicial ou para onde desejar
         else:
             messages.error(request, "Usuário ou senha inválidos.")
-            print(messages)
             return redirect('cadastro_usuario:login')  # Redireciona de volta para o login em caso de erro
     
-    return redirect('cadastro_usuario:login') 
+    # Exibe a página de login ao invés de redirecionar em caso de GET
+    return render(request, 'templates_cadastrousuario/login.html')
 
 
 def logout_view(request):

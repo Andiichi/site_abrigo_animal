@@ -1,38 +1,26 @@
 {% extends 'base.html' %}
-{% load bootstrap5 %}
-{% load static %}
+{% load bootstrap5 static %}
 {% bootstrap_css %}
 
-{% block title %}
-Home
-{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
 <style>
-    /*
-        PAGINA HOME
-*/
-
-    /* Centraliza e define a largura máxima da página */
+    /* Estilo da Página Home */
     .page-container {
         max-width: 700px;
-        /* Define uma largura máxima para toda a página */
         margin: 0 auto;
         text-align: center;
     }
 
-    /* Ajusta o carrossel ao tamanho da página */
     .carousel-container {
         max-width: 100%;
-        /* Ajusta o carrossel à largura do container */
     }
-
 
     .custom-caption {
         background-color: rgba(0, 0, 0, 0.192);
         border-radius: 8px;
         display: inline-block;
-
     }
 
     .toast {
@@ -41,11 +29,38 @@ Home
         z-index: 1050;
         background-color: rgba(4, 255, 4, 0.185);
     }
+
+    /* cards animais */
+    .card-img-overlay {
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        transition: opacity, background-color 500ms ease-in-out;
+        /* Transição suave de opacidade */
+    }
+
+    /* Quando o card está em hover, define a opacidade para 1 com atraso */
+    .card:hover .card-img-overlay {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.788);
+    }
+
+    .detalhes-pet:hover {
+        box-shadow: 0 4px 8px 0 rgba(93, 181, 253, 0.2), 0 6px 20px 0 rgba(80, 107, 255, 0.19);
+
+    }
+
+    .adotar-pet:hover {
+        box-shadow: 0 4px 8px 0 rgba(116, 250, 150, 0.2), 0 6px 20px 0 rgba(80, 107, 255, 0.19);
+
+    }
 </style>
 
-
 {% if messages %}
-<div id="liveToast" class="toast align-items-center position-absolute" role="alert" aria-live="assertive"
+<div id="liveToast" class="toast align-items-center position-fixed" role="alert" aria-live="assertive"
     aria-atomic="true" data-bs-autohide="true">
     <div class="d-flex">
         <div class="toast-body">
@@ -58,44 +73,71 @@ Home
 </div>
 {% endif %}
 
+<div class="container mx-auto p-4">
+    <h2 class="text-center text-primary py-3 rounded border border-primary display-6">
+        Bem-vindos ao Abrigo Animal!
+    </h2>
+</div>
 
-<div class="row row-cols-auto p-4">
-    {% for animal in animais %}
-    <div class="col text-center">
-        {% if animal.galeria.first %}
-        <img src="{{ animal.galeria.first.imagem.url }}" class="rounded" alt="Imagem de {{ animal.nome|capfirst }}" width="360" height="260">
-        {% else %}
-        <img src="{% static 'staticfiles/img/default.png' %}" class="rounded" alt="Imagem padrão" width="360" height="260">
-        {% endif %}
-        <div class="py-2">
-            <h5 class="font-bold">{{ animal.nome|capfirst }}</h5>
-            <p>{{ animal.idade }} anos | {{ animal.especie|capfirst }} | {{ animal.sexo|capfirst }}</p>
+<div class="container my-4">
+    <div class="row g-2">
+        {% for animal in animais %}
+        <div class="col-12 col-md-6 col-lg-4">
+            {% if animal.galeria.first %}
+            <div class="card text-white">
+                <img src="{{ animal.galeria.first.imagem.url }}" alt="Imagem de {{ animal.nome|capfirst }}" width="auto"
+                    height="260px" class="rounded">
+
+                <div class="d-flex text-center card-img-overlay gap-4">
+                    <a class="btn btn-primary detalhes-pet" href="{% url 'detalhe_animal' animal.id %}"
+                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                        Ver detalhes
+                    </a>
+                    <a class="btn btn-success adotar-pet" href="{% url 'adocao_gestao:adote' %}"
+                        style="--bs-btn-padding-y: 6px; --bs-btn-padding-x: 25px; --bs-btn-font-size: 16px;">
+                        Adotar
+                    </a>
+
+                </div>
+            </div>
+            <div class=" mt-2">
+                <h5 class="font-bold">{{ animal.nome|capfirst }}</h5>
+                <p>{{ animal.idade }} anos | {{ animal.especie|capfirst }} | {{ animal.sexo|capfirst }}</p>
+            </div>
+            {% else %}
+            <div class="card bg-dark text-white">
+                <img src="{% static 'img/default.png' %}" alt="Imagem de {{ animal.nome|capfirst }}"
+                    class="card-img imagem-responsiva">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Ver detalhes</h5>
+
+                </div>
+            </div>
+            {% endif %}
         </div>
+        {% empty %}
+        <h1 class="text-center">Nenhum animal cadastrado.</h1>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 
 <div class="container mx-auto p-4">
-    <h2 class="text-center text-primary py-3 rounded border border-primary">
+    <h2 class="text-center text-primary py-3 rounded border border-primary display-6">
         Adote. Não Compre.
     </h2>
 </div>
 
 
-    <script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var toastElement = document.getElementById("liveToast");
+        if (toastElement) {
+            var toast = new bootstrap.Toast(toastElement, {
+                delay: 5000
+            });
+            toast.show();
+        }
+    });
+</script>
 
-
-        document.addEventListener("DOMContentLoaded", function () {
-            var toastElement = document.getElementById("liveToast");
-            if (toastElement) {  // Verifica se o toast está presente
-                var toast = new bootstrap.Toast(toastElement, {
-                    delay: 5000  // Duração do toast (3 segundos)
-                });
-                toast.show();  // Exibe o toast
-            }
-        });
-    </script>
-
-
-
-    {% endblock %}
+{% endblock %}
