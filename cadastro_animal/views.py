@@ -10,7 +10,7 @@ from .models import GaleriaAnimal, CadastroAnimal
 def lista_animais(request):
     animais = CadastroAnimal.objects.filter(disponivel = True)
     
-    return render(request, 'home.html', {'animais': animais})
+    return render(request, 'templates_home/home.html', {'animais': animais})
 
 def cadastro(request):
     if request.method == 'POST':

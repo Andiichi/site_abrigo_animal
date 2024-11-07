@@ -38,7 +38,7 @@ Detalho do {{ animal.nome }}
                         <!-- Botão de adoção -->
                      <div class="d-flex justify-content-start">
                         <div class="status-adocao mx-3">
-                            <a href="{% url 'detalhe_animal' animal.id %}" class="btn btn-outline-primary">Ver status da adoção </a>
+                            <a href="{% url 'cadastro_animal:detalhe_animal' animal.id %}" class="btn btn-outline-primary">Ver status da adoção </a>
                         </div>
                         <div class=" mx-3">
                             <a href="{% url 'adocao_gestao:adote' %}" class="btn btn-outline-success">Adotar <strong>{{ animal.nome|capfirst }}</strong> </a>

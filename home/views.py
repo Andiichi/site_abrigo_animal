@@ -15,7 +15,7 @@ def pesquisar_animais(request):
         #fazendo pesquisa só de um campo
         # animais = CadastroAnimal.objects.filter(nome__icontains = pesquisa_query)
         
-        return render(request, 'pagina_pesquisa.html', {'pesquisa_query':pesquisa_query , 'animais': animais})
+        return render(request, 'templates_home/pagina_pesquisa.html', {'pesquisa_query':pesquisa_query , 'animais': animais})
     
     else:
-        return render(request, 'pagina_pesquisa.html', {})
+        return render(request, 'templates_home/pagina_pesquisa.html', {})

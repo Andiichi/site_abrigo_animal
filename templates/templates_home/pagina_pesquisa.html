@@ -34,7 +34,7 @@ Pesquisar um animal
                     <!-- Botão de adoção -->
                      <div class="d-flex">
                         <div class="p-2">
-                            <a href="{% url 'detalhe_animal' animal.id %}" class="btn btn-outline-primary">Ver mais </a>
+                            <a href="{% url 'cadastro_animal:detalhe_animal' animal.id %}" class="btn btn-outline-primary">Ver mais </a>
                         </div>
                         <div class="p-2">
                             <a href="{% url 'adocao_gestao:adote' %}" class="btn btn-outline-success">Adotar </a>
@@ -61,4 +61,5 @@ Pesquisar um animal
     {% endif %}
 </div>
 
+<a class="btn btn-outline-primary m-4" href="{% url 'home:home' %}" role="button">Voltar</a>
 {% endblock %}

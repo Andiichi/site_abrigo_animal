@@ -19,10 +19,10 @@ def login_view(request):
         
         if user is not None:
             auth.login(request, user)
-            messages.success(request, "Login realizado com sucesso.")
-            return redirect('home')  # Redireciona para a página inicial ou para onde desejar
+            messages.success(request,'Login realizado com sucesso!')
+            return redirect('home:home')  # Redireciona para a página inicial ou para onde desejar
         else:
-            messages.error(request, "Usuário ou senha inválidos.")
+            messages.error(request, 'Usuário ou senha inválidos!')
             return redirect('cadastro_usuario:login')  # Redireciona de volta para o login em caso de erro
     
     # Exibe a página de login ao invés de redirecionar em caso de GET
@@ -32,6 +32,8 @@ def login_view(request):
 def logout_view(request):
     if request.method == "POST":
         django_logout(request)  # Chama o logout do Django
-        messages.success(request, "Logout realizado com sucesso.")
-        return redirect('home')  # Redireciona para a página inicial ou a que desejar
+        
+        messages.error(request,  "Você foi desconectado!", extra_tags="alerta-logout")
+        return redirect('home:home')  # Redireciona para a página inicial ou a que desejar
+    
     return render(request, "templates_cadastrousuario/logout.html", {})

@@ -10,7 +10,7 @@ Contato
 {% block content %}
 
 <div class="d-grid gap-2 col-6 mx-auto mt-5">
-    <h1 class="text-center">Entre em contato com a gente</h1>
+    <h1 class="text-center mb-4">Entre em contato com a gente</h1>
     <div class="mb-3 card">
         <div class="card-body">
             <form enctype="multipart/form-data"  action="" method="POST">
@@ -59,6 +59,6 @@ Contato
     </div>
 </div>
 
-<a class="btn btn-outline-primary m-4" href="{% url 'home' %}" role="button">Voltar a home</a>
+<a class="btn btn-outline-primary m-4" href="{% url 'home:home' %}" role="button">Voltar a home</a>
 
 {% endblock %}

@@ -6,20 +6,6 @@
 
 {% block content %}
 
-{% if messages %}
-<div id="liveToast" class="toast align-items-center position-fixed" role="alert" aria-live="assertive"
-    aria-atomic="true" data-bs-autohide="true">
-    <div class="d-flex">
-        <div class="toast-body">
-            {% for message in messages %}
-            <strong>{{ message }}</strong>
-            {% endfor %}
-        </div>
-        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-</div>
-{% endif %}
-
 <div class="container mx-auto p-4">
     <h2 class="text-center text-primary py-3 rounded border border-primary display-6">
         Bem-vindos ao Abrigo Animal!
@@ -36,7 +22,7 @@
                     height="260px" class="rounded">
 
                 <div class="d-flex text-center card-img-overlay gap-4">
-                    <a class="btn btn-primary detalhes-pet" href="{% url 'detalhe_animal' animal.id %}"
+                    <a class="btn btn-primary detalhes-pet" href="{% url 'cadastro_animal:detalhe_animal' animal.id %}"
                         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                         Ver detalhes
                     </a>
@@ -73,8 +59,5 @@
         Adote. Não Compre.
     </h2>
 </div>
-
-
-
 
 {% endblock %}

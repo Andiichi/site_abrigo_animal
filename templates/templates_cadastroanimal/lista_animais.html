@@ -27,7 +27,7 @@ Lista de animais disponíveis
                      <!-- Botão de adoção -->
                      <div class="d-flex justify-content-start">
                         <div class="">
-                            <a href="{% url 'detalhe_animal' animal.id %}" class="btn btn-outline-primary">Ver mais </a>
+                            <a href="{% url 'cadastro_animal:detalhe_animal' animal.id %}" class="btn btn-outline-primary">Ver mais </a>
                         </div>
                         <div class="">
                             <a href="{% url 'adocao_gestao:adote' %}" class="btn btn-outline-success ms-3">Adotar</a>
