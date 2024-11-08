@@ -2,115 +2,105 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
 
-    <!-- Google Material Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <!-- Google Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
-    {% load static %}
-    <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% load static %}
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-    <!-- Title -->
-    <title>Abrigo Animal | {% block title %}Página inicial{% endblock %}</title>
+  <!-- Title -->
+  <title>Abrigo Animal | {% block title %}Página inicial{% endblock %}</title>
 </head>
 
 <body class="poppins-regular">
 
-    <!-- Navigation -->
-    {% include 'nav.html' %}
+  <!-- Navigation -->
+  {% include 'nav.html' %}
 
-    <!-- Main Content -->
-    <main class="container my-4">
-        {% block content %}{% endblock %}   <!-- conteudo de outras paginas -->
+  <!-- Main Content -->
+  <main class="container my-4">
 
+    <!-- inicio do alerta toast -->
 
-        <!-- Início do Toast -->
-{% if messages %} <!-- Se houver mensagens, o Toast será exibido -->
-{% for message in messages %} <!-- Loop para processar todas as mensagens -->
-  
-  {% if message.tags == 'success' %} <!-- Se for uma mensagem de sucesso -->
-    <!-- Toast para mensagem de sucesso -->
-    <div id="liveToast{{ forloop.counter }}" class="toast toast-alerts align-items-center text-white bg-success z-3 position-absolute end-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+    {% if messages %} <!-- se tiver mensagens ativa o toast-->
+    {% for message in messages %} <!-- pega as mensagens disponiveis -->
+    
+    {% if 'success' in message.tags %} <!-- se for sucesso -->
+    <div id="liveToast"
+      class="toast toast-alerts align-items-center text-white bg-{{message.tags}} z-3 position-absolute end-0 fade "
+      role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
-        <svg class="bd-placeholder-img me-2" width="20" height="20" fill="#000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve">
-          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-          <g id="SVGRepo_iconCarrier">
-            <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M10.8,16.8l-3.7-3.7l1.4-1.4l2.2,2.2l5.8-6.1L18,9.3 L10.8,16.8z"></path>
-          </g>
-        </svg>
-        <strong class="me-auto">Bem-vindo, {{ user.first_name }}!</strong>
+        <strong class="me-auto">
+
+
+          <svg class="bd-placeholder-img rounded" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z"
+                fill="#000000"></path>
+            </g>
+          </svg>
+          Sucesso!
+
+          {% else %} <!-- para o erro -->
+
+          <svg class="bd-placeholder-img rounded" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM7.75736 7.05025C8.14788 6.65973 8.78105 6.65973 9.17157 7.05025L12 9.87868L14.8284 7.05025C15.219 6.65973 15.8521 6.65973 16.2426 7.05025L16.9497 7.75736C17.3403 8.14788 17.3403 8.78105 16.9497 9.17157L14.1213 12L16.9497 14.8284C17.3403 15.219 17.3403 15.8521 16.9497 16.2426L16.2426 16.9497C15.8521 17.3403 15.219 17.3403 14.8284 16.9497L12 14.1213L9.17157 16.9497C8.78105 17.3403 8.14788 17.3403 7.75736 16.9497L7.05025 16.2426C6.65973 15.8521 6.65973 15.219 7.05025 14.8284L9.87868 12L7.05025 9.17157C6.65973 8.78105 6.65973 8.14788 7.05025 7.75736L7.75736 7.05025Z"
+                fill="#000000"></path>
+            </g>
+          </svg>
+
+          Erro!
+
+          {% endif %}
+        </strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
+
       <div class="toast-body">
-        <i>{{ message|safe }}</i>
+        <i>{{ message }}</i> <!-- mostra a mensagem do return lá da view -->
       </div>
-    </div>
 
-  {% elif message.tags == 'alerta-logout' %} <!-- Se for uma mensagem de logout -->
-    <!-- Toast para mensagem de logout -->
-    <div id="liveToast{{ forloop.counter }}" class="toast toast-alerts align-items-center text-white bg-warning z-3 position-absolute end-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-        <svg class="bd-placeholder-img me-2" width="20" height="20" fill="#000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve">
-          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-          <g id="SVGRepo_iconCarrier">
-            <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M10.8,16.8l-3.7-3.7l1.4-1.4l2.2,2.2l5.8-6.1L18,9.3 L10.8,16.8z"></path>
-          </g>
-        </svg>
-        <strong class="me-auto">Você foi desconectado!</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body">
-        <i>{{ message|safe }}</i>
-      </div>
-    </div>
+      {% endfor %}
+      {% endif %}
 
-  {% else %} <!-- Se for qualquer outra mensagem (erro, etc.) -->
-    <!-- Toast para erro -->
-    <div id="liveToast{{ forloop.counter }}" class="toast toast-alerts align-items-center text-white bg-danger z-3 position-absolute end-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-        <svg class="bd-placeholder-img me-2" width="20" height="20" fill="#000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve">
-          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-          <g id="SVGRepo_iconCarrier">
-            <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M10.8,16.8l-3.7-3.7l1.4-1.4l2.2,2.2l5.8-6.1L18,9.3 L10.8,16.8z"></path>
-          </g>
-        </svg>
-        <strong class="me-auto">Erro!</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body">
-        <i>{{ message|safe }}</i>
-      </div>
-    </div>
-
-  {% endif %}
-{% endfor %}
-{% endif %}
-<!-- Fim do alerta via toast -->
+    </div> <!-- fim do alerta toast -->
 
 
-    </main>
+    {% block content %}{% endblock %} <!-- conteudo de outras paginas -->
 
 
-    <!-- Footer -->
-    {% include 'footer.html' %}
+  </main>
 
 
-    <!-- Scripts -->
-    {% block scripts %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'js/scripts.js' %}"></script>
-    {% endblock %}
+  <!-- Footer -->
+  {% include 'footer.html' %}
+
+
+  <!-- Scripts -->
+  {% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+  {% endblock %}
 
 </body>
+
 </html>
